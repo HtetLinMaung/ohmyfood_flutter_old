@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ohmyfood_flutter/components/image_background.dart';
-import 'package:ohmyfood_flutter/components/main_button.dart';
+import 'package:ohmyfood_flutter/components/button/main_button.dart';
+import 'package:ohmyfood_flutter/components/container/image_background.dart';
 import 'package:ohmyfood_flutter/screens/start_screen.dart';
 
 class GetStartedScreen extends StatelessWidget {
