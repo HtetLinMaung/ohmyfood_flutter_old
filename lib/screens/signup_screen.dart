@@ -4,6 +4,7 @@ import 'package:ohmyfood_flutter/components/button/main_button.dart';
 import 'package:ohmyfood_flutter/components/container/image_background.dart';
 import 'package:ohmyfood_flutter/components/form/filled_input.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
+import 'package:ohmyfood_flutter/screens/otp_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = 'SignupScreen';
@@ -151,7 +152,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: MainButton(
                               title: 'Sign up',
                               color: kBlueColor,
-                              onPressed: () {},
+                              onPressed: () => Navigator.pushNamed(
+                                  context, OtpScreen.routeName),
                             ),
                           ),
                         ],
