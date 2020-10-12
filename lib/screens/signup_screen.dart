@@ -15,11 +15,11 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   TextEditingController _usernameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmController = TextEditingController();
   String _usernameErrorText = '';
-  String _phoneErrorText = '';
+  String _emailErrorText = '';
   String _passwordErrorText = '';
   String _confirmErrorText = '';
   bool _agree = false;
@@ -81,19 +81,18 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Name',
                       ),
                       FilledInput(
-                        keyboardType: TextInputType.phone,
-                        controller: _phoneController,
-                        errorText: _phoneErrorText,
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _emailController,
+                        errorText: _emailErrorText,
                         onChanged: (text) {
                           setState(() {
-                            _phoneErrorText = '';
-                            if (text.length < 9 || text.length > 11) {
-                              _phoneErrorText =
-                                  'Phone number must between 9 and 11 characters!';
+                            _emailErrorText = '';
+                            if (text.isEmpty) {
+                              _emailErrorText = 'Email must not be empty!';
                             }
                           });
                         },
-                        hintText: 'Phone number',
+                        hintText: 'Email',
                       ),
                       FilledInput(
                         obscureText: true,

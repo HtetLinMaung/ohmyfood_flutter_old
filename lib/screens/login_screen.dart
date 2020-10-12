@@ -4,6 +4,7 @@ import 'package:ohmyfood_flutter/components/button/main_button.dart';
 import 'package:ohmyfood_flutter/components/container/image_background.dart';
 import 'package:ohmyfood_flutter/components/form/filled_input.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
+import 'package:ohmyfood_flutter/screens/home_screen.dart';
 import 'package:ohmyfood_flutter/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -72,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           });
                         },
-                        hintText: 'Phone number',
+                        hintText: 'Phone',
                       ),
                       FilledInput(
                         obscureText: true,
@@ -105,7 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Expanded(
                             child: MainButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.pushNamed(
+                                  context, HomeScreen.routeName),
                               title: 'Sign in',
                               color: kOrangeColor,
                             ),

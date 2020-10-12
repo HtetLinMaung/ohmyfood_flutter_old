@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/main_button.dart';
 import 'package:ohmyfood_flutter/components/form/otp_input.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
+import 'package:ohmyfood_flutter/screens/home_screen.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   static const routeName = 'OtpVerifyScreen';
@@ -95,7 +96,8 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                     vertical: 40,
                   ),
                   child: MainButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.pushNamed(context, HomeScreen.routeName),
                     color: kOtpBtnColor,
                     title: 'Verify & Proceed',
                   ),
