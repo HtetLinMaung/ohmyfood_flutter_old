@@ -41,9 +41,8 @@ class _SignupScreenState extends State<SignupScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(35),
                   ),
                 ),
                 child: SingleChildScrollView(

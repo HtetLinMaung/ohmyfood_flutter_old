@@ -10,6 +10,6 @@ class CategoryType {
     this.id,
     this.name,
     this.image,
-    this.active,
+    this.active = false,
   });
 }

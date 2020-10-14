@@ -5,6 +5,7 @@ import 'package:ohmyfood_flutter/components/tag/card_tag.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
 import 'package:ohmyfood_flutter/models/category.dart';
 import 'package:ohmyfood_flutter/models/category_type.dart';
+import 'package:ohmyfood_flutter/screens/menu_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = 'HomeScreen';
@@ -176,6 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ...List.generate(
               _categories.length,
               (index) => CategoryCard(
+                key: Key(_categories[index].id),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  MenuScreen.routeName,
+                  arguments: _categories[index],
+                ),
                 category: _categories[index],
               ),
             ),

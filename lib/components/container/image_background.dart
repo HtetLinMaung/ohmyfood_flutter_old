@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 
 class ImageBackground extends StatelessWidget {
   final Widget child;
+  final ImageProvider<Object> image;
 
-  ImageBackground({this.child});
+  ImageBackground({
+    this.child,
+    this.image = const AssetImage('images/ma-la-xiang-guo-10.jpg'),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,7 @@ class ImageBackground extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/ma-la-xiang-guo-10.jpg'),
+            image: image,
             fit: BoxFit.cover,
           ),
         ),
