@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
+import 'package:ohmyfood_flutter/components/menu_screen/menu_list.dart';
+import 'package:ohmyfood_flutter/components/menu_screen/menu_type_list.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
 import 'package:ohmyfood_flutter/models/category.dart';
-import 'package:ohmyfood_flutter/models/menu.dart';
-import 'package:ohmyfood_flutter/models/menu_type.dart';
 
 class MenuScreen extends StatefulWidget {
   static const routeName = 'MenuScreen';
@@ -15,45 +15,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  List<MenuType> _menuTypes = [
-    MenuType(
-      name: 'Breakfasts',
-      active: true,
-    ),
-    MenuType(
-      name: 'Main dishes',
-    ),
-    MenuType(
-      name: 'Desserts',
-    ),
-  ];
-  List<Menu> _menus = [
-    Menu(
-      id: '1',
-      name: 'Pancakes - S',
-      description: 'Oranges, Pecan, Maple syrup, Mascarpone',
-      discountPercent: 0.0,
-      imageUrl: '',
-      price: 1200,
-    ),
-    Menu(
-      id: '1',
-      name: 'Pancakes - M',
-      description: 'Oranges, Pecan, Maple syrup, Mascarpone',
-      discountPercent: 0.0,
-      imageUrl: '',
-      price: 1200,
-    ),
-    Menu(
-      id: '1',
-      name: 'Pancakes - L',
-      description: 'Oranges, Pecan, Maple syrup, Mascarpone',
-      discountPercent: 0.0,
-      imageUrl: '',
-      price: 1200,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final Category category = ModalRoute.of(context).settings.arguments;
@@ -207,56 +168,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     ],
                   ),
                 ),
-                Container(
-                  height: 30,
-                  child: ListView.builder(
-                    padding: EdgeInsets.only(left: 30),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _menuTypes.length,
-                    itemBuilder: (ctx, i) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: Container(
-                          height: 30,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _menuTypes.forEach(
-                                    (element) => element.active = false);
-                                _menuTypes[i].active = true;
-                              });
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  _menuTypes[i].name,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: _menuTypes[i].active
-                                        ? Colors.black
-                                        : kNormalFontColor,
-                                    fontWeight: _menuTypes[i].active
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                  ),
-                                ),
-                                AnimatedContainer(
-                                  duration: Duration(
-                                    milliseconds: 300,
-                                  ),
-                                  width: _menuTypes[i].active ? 22 : 0,
-                                  height: 3,
-                                  color: kOrangeColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                MenuTypeList(),
+                MenuList(),
               ],
             ),
           ),

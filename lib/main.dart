@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/providers/CategoryProvider.dart';
+import 'package:ohmyfood_flutter/providers/menu_provider.dart';
+import 'package:ohmyfood_flutter/screens/cart_screen.dart';
 import 'package:ohmyfood_flutter/screens/get_started_screen.dart';
 import 'package:ohmyfood_flutter/screens/home_screen.dart';
 import 'package:ohmyfood_flutter/screens/landing_screen.dart';
 import 'package:ohmyfood_flutter/screens/login_screen.dart';
+import 'package:ohmyfood_flutter/screens/menu_detail_screen.dart';
 import 'package:ohmyfood_flutter/screens/menu_screen.dart';
 import 'package:ohmyfood_flutter/screens/otp_screen.dart';
 import 'package:ohmyfood_flutter/screens/otp_verify_screen.dart';
@@ -15,6 +18,9 @@ void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MenuProvider(),
         ),
       ],
       child: OhMyFood(),
@@ -38,6 +44,8 @@ class OhMyFood extends StatelessWidget {
         OtpVerifyScreen.routeName: (context) => OtpVerifyScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
         MenuScreen.routeName: (context) => MenuScreen(),
+        CartScreen.routeName: (context) => CartScreen(),
+        MenuDetailScreen.routeName: (context) => MenuDetailScreen(),
       },
     );
   }

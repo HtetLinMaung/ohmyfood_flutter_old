@@ -7,6 +7,7 @@ class CircleButton extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final Function onPress;
   final Color fillColor;
+  final double elevation;
 
   const CircleButton({
     this.child,
@@ -14,6 +15,7 @@ class CircleButton extends StatelessWidget {
     this.margin,
     @required this.onPress,
     this.fillColor = kTagColor,
+    this.elevation = 0,
     Key key,
   }) : super(key: key);
 
@@ -26,7 +28,7 @@ class CircleButton extends StatelessWidget {
       child: RawMaterialButton(
         onPressed: onPress,
         child: child,
-        elevation: 0,
+        elevation: elevation,
         fillColor: fillColor,
         shape: CircleBorder(),
       ),

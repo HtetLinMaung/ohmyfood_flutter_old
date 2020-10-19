@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
 import 'package:ohmyfood_flutter/components/card/category_card.dart';
+import 'package:ohmyfood_flutter/components/container/app_layout.dart';
 import 'package:ohmyfood_flutter/components/tag/card_tag.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
 import 'package:ohmyfood_flutter/models/category.dart';
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppLayout(
       appBar: AppBar(
         elevation: 0,
         leading: Container(
@@ -106,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           children: [

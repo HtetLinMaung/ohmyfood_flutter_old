@@ -1,3 +1,4 @@
+import 'package:ohmyfood_flutter/models/ingredient.dart';
 import 'package:ohmyfood_flutter/models/menu_type.dart';
 
 class Menu {
@@ -8,6 +9,7 @@ class Menu {
   final double discountPercent;
   final String imageUrl;
   final List<MenuType> menuType;
+  final List<Ingredient> ingredients;
 
   Menu({
     this.id,
@@ -17,5 +19,6 @@ class Menu {
     this.discountPercent,
     this.imageUrl,
     this.menuType,
+    this.ingredients,
   });
 }
