@@ -1,9 +1,14 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
 import 'package:ohmyfood_flutter/components/button/main_button.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
+import 'package:ohmyfood_flutter/models/cart_item.dart';
+import 'package:ohmyfood_flutter/models/menu.dart';
+import 'package:ohmyfood_flutter/providers/app_provider.dart';
 import 'package:ohmyfood_flutter/providers/menu_provider.dart';
+import 'package:ohmyfood_flutter/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 class MenuDetailScreen extends StatefulWidget {
@@ -16,6 +21,7 @@ class MenuDetailScreen extends StatefulWidget {
 class _MenuDetailScreenState extends State<MenuDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final appProvider = context.watch<AppProvider>();
     final store = context.watch<MenuProvider>();
     final menu = store.currentMenu;
 
@@ -62,7 +68,11 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                               Icons.close,
                               size: 20,
                             ),
-                            onTap: () => Navigator.pop(context),
+                            onTap: () {
+                              menu.ingredients
+                                  .forEach((element) => element.quantity = 0);
+                              Navigator.pop(context);
+                            },
                           ),
                         ],
                       ),
@@ -140,13 +150,27 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    menu.ingredients[i].name,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: kNormalFontColor,
-                                    ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        menu.ingredients[i].name,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: kNormalFontColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${menu.ingredients[i].price} kyats',
+                                        style: TextStyle(
+                                          color: kNormalFontColor,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   !menu.ingredients[i].oneOrMore
                                       ? CircleButton(
@@ -249,7 +273,19 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                     flex: 7,
                     child: MainButton(
                       elevation: 10,
-                      onPressed: () {},
+                      onPressed: () {
+                        final carts = appProvider.carts;
+                        carts.add(CartItem(
+                          id: DateTime.now().toIso8601String(),
+                          menu: menu.getClone(),
+                        ));
+                        appProvider.setCarts(carts);
+
+                        menu.ingredients
+                            .forEach((element) => element.quantity = 0);
+                        Navigator.popAndPushNamed(
+                            context, CartScreen.routeName);
+                      },
                       color: kDarkYellowColor,
                       title: 'Add to cart',
                     ),
@@ -259,11 +295,19 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                   ),
                   CircleButton(
                     size: 45,
-                    onPress: () {},
+                    onPress: () =>
+                        Navigator.pushNamed(context, CartScreen.routeName),
                     elevation: 10,
                     // fillColor: kDarkYellowColor,
-                    child: Icon(
-                      Icons.add_shopping_cart_rounded,
+                    child: Badge(
+                      showBadge: appProvider.carts.length > 0,
+                      badgeContent: Text(
+                        appProvider.carts.length.toString(),
+                      ),
+                      badgeColor: kDarkYellowColor,
+                      child: Icon(
+                        Icons.add_shopping_cart_rounded,
+                      ),
                     ),
                   ),
                   Expanded(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/providers/CategoryProvider.dart';
+import 'package:ohmyfood_flutter/providers/app_provider.dart';
 import 'package:ohmyfood_flutter/providers/menu_provider.dart';
 import 'package:ohmyfood_flutter/screens/cart_screen.dart';
 import 'package:ohmyfood_flutter/screens/get_started_screen.dart';
@@ -16,6 +17,9 @@ import 'package:provider/provider.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => AppProvider(),
+        ),
         ChangeNotifierProvider(
           create: (_) => CategoryProvider(),
         ),

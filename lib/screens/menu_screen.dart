@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
+import 'package:ohmyfood_flutter/components/container/app_layout.dart';
 import 'package:ohmyfood_flutter/components/menu_screen/menu_list.dart';
 import 'package:ohmyfood_flutter/components/menu_screen/menu_type_list.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
@@ -19,8 +20,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     final Category category = ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return AppLayout(
       body: Column(
         children: [
           Expanded(

@@ -21,4 +21,17 @@ class Menu {
     this.menuType,
     this.ingredients,
   });
+
+  Menu getClone() {
+    return Menu(
+      id: id,
+      price: price,
+      ingredients: ingredients.map((e) => e.getClone()).toList(),
+      name: name,
+      description: description,
+      discountPercent: discountPercent,
+      imageUrl: imageUrl,
+      menuType: menuType,
+    );
+  }
 }
