@@ -8,7 +8,7 @@ class AppProvider with ChangeNotifier {
 
   double get subTotal => _carts.length > 0
       ? _carts
-          .map((e) => e.getTotal())
+          .map((e) => e.getTotal() * e.quantity)
           .toList()
           .reduce((value, element) => value + element)
       : 0;
@@ -16,7 +16,7 @@ class AppProvider with ChangeNotifier {
   double get discountPrice => 0;
 
   void setCarts(List<CartItem> carts) {
-    _carts = carts;
+    _carts = carts.where((element) => element.quantity > 0).toList();
     notifyListeners();
   }
 }

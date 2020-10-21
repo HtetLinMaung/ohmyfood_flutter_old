@@ -38,16 +38,8 @@ class MenuList extends StatelessWidget {
                       tag: 'menu_image${store.menus[i].id}',
                       child: Material(
                         type: MaterialType.transparency,
-                        child: Container(
-                          width: 80,
-                          height: 85,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(store.menus[i].imageUrl),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
+                        child: RoundedImage(
+                          image: AssetImage(store.menus[i].imageUrl),
                         ),
                       ),
                     ),
@@ -105,6 +97,30 @@ class MenuList extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class RoundedImage extends StatelessWidget {
+  final ImageProvider<Object> image;
+
+  const RoundedImage({
+    Key key,
+    @required this.image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 80,
+      height: 85,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: image,
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.circular(15),
       ),
     );
   }
