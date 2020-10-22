@@ -159,7 +159,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     children: [
                       Text(category.availableTime),
                       Text(
-                        'Min - ${category.price} kyats',
+                        'Min - ${category.price} KS',
                         style: TextStyle(
                           color: kNormalFontColor,
                           fontSize: 12,

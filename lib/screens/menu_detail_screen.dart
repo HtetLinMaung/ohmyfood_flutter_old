@@ -1,11 +1,9 @@
 import 'package:badges/badges.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
 import 'package:ohmyfood_flutter/components/button/main_button.dart';
+import 'package:ohmyfood_flutter/components/menu_detail_screen/ingredient_card.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
-import 'package:ohmyfood_flutter/models/cart_item.dart';
-import 'package:ohmyfood_flutter/models/menu.dart';
 import 'package:ohmyfood_flutter/providers/app_provider.dart';
 import 'package:ohmyfood_flutter/providers/menu_provider.dart';
 import 'package:ohmyfood_flutter/screens/cart_screen.dart';
@@ -89,6 +87,7 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                       Row(
                         children: [
                           Expanded(
+                            flex: 3,
                             child: Text(
                               menu.description,
                               style: TextStyle(
@@ -96,8 +95,11 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                               ),
                             ),
                           ),
+                          Expanded(
+                            child: Text(''),
+                          ),
                           Text(
-                            '${menu.price} kyats',
+                            '${menu.price} KS',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -109,153 +111,7 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Card(
-                  margin: EdgeInsets.only(
-                    top: 30,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(35),
-                    ),
-                  ),
-                  elevation: 40,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20.0,
-                          right: 20.0,
-                          top: 35.0,
-                        ),
-                        child: Text(
-                          'Add more stuff',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          itemCount: menu.ingredients.length,
-                          itemBuilder: (ctx, i) {
-                            return Container(
-                              margin: EdgeInsets.symmetric(
-                                vertical: 10,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        menu.ingredients[i].name,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: kNormalFontColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        '${menu.ingredients[i].price} kyats',
-                                        style: TextStyle(
-                                          color: kNormalFontColor,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  !menu.ingredients[i].oneOrMore
-                                      ? CircleButton(
-                                          size: 30,
-                                          onPress: () {
-                                            setState(() {
-                                              menu.ingredients[i].quantity =
-                                                  menu.ingredients[i].quantity <
-                                                          1
-                                                      ? 1
-                                                      : 0;
-                                            });
-                                          },
-                                          fillColor:
-                                              menu.ingredients[i].quantity == 1
-                                                  ? Colors.red
-                                                  : kTagColor,
-                                          child: Icon(
-                                            menu.ingredients[i].quantity == 0
-                                                ? Icons.add
-                                                : Icons.remove,
-                                            size: 16,
-                                            color:
-                                                menu.ingredients[i].quantity ==
-                                                        1
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                          ),
-                                        )
-                                      : Row(
-                                          children: [
-                                            CircleButton(
-                                              size: 25,
-                                              onPress: () {
-                                                setState(() {
-                                                  if (menu.ingredients[i]
-                                                          .quantity !=
-                                                      0) {
-                                                    menu.ingredients[i]
-                                                        .quantity--;
-                                                  }
-                                                });
-                                              },
-                                              child: Icon(
-                                                Icons.remove,
-                                                size: 16,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              child: Text(
-                                                menu.ingredients[i].quantity
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ),
-                                            CircleButton(
-                                              size: 25,
-                                              onPress: () {
-                                                setState(() {
-                                                  menu.ingredients[i]
-                                                      .quantity++;
-                                                });
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                                size: 16,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              IngredientCard(),
             ],
           ),
           Align(
@@ -274,20 +130,33 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                     child: MainButton(
                       elevation: 10,
                       onPressed: () {
-                        final carts = appProvider.carts;
-                        carts.add(CartItem(
-                          id: DateTime.now().toIso8601String(),
-                          menu: menu.getClone(),
-                        ));
-                        appProvider.setCarts(carts);
+                        final appProvider = context.read<AppProvider>();
+                        final menuProvider = context.read<MenuProvider>();
+                        // var quantity = 1;
+                        if (menuProvider.isUpdate) {
+                          // quantity = appProvider.carts
+                          //     .firstWhere(
+                          //         (element) => element.menu.id != menu.id)
+                          //     .quantity;
+                          final carts = appProvider.carts
+                              .where((element) => element.menu.id != menu.id)
+                              .toList();
+                          appProvider.setCarts(carts);
+                          menuProvider.setIsUpdate(false);
+                        }
+                        appProvider.addToCart(menu);
 
                         menu.ingredients
                             .forEach((element) => element.quantity = 0);
-                        Navigator.popAndPushNamed(
-                            context, CartScreen.routeName);
+                        if (menuProvider.isUpdate) {
+                          Navigator.pop(context);
+                        } else {
+                          Navigator.popAndPushNamed(
+                              context, CartScreen.routeName);
+                        }
                       },
                       color: kDarkYellowColor,
-                      title: 'Add to cart',
+                      title: store.isUpdate ? 'Update' : 'Add to cart',
                     ),
                   ),
                   Expanded(

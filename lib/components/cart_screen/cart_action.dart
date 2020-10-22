@@ -12,7 +12,9 @@ class CartAction extends StatelessWidget {
     return Expanded(
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(35),
+          ),
         ),
         margin: EdgeInsets.all(0),
         elevation: 40,
@@ -27,7 +29,7 @@ class CartAction extends StatelessWidget {
                   Text(
                     'SubTotal',
                   ),
-                  Text('${appProvider.subTotal} kyats'),
+                  Text('${appProvider.subTotal} KS'),
                 ],
               ),
               Row(
@@ -36,7 +38,7 @@ class CartAction extends StatelessWidget {
                   Text(
                     'Discount Price',
                   ),
-                  Text('${appProvider.discountPrice} kyats'),
+                  Text('${appProvider.discountPrice} KS'),
                 ],
               ),
               Row(
@@ -50,7 +52,7 @@ class CartAction extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${appProvider.subTotal - appProvider.discountPrice} kyats',
+                    '${appProvider.subTotal - appProvider.discountPrice} KS',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,

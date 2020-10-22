@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
+import 'package:ohmyfood_flutter/models/cart_item.dart';
+import 'package:ohmyfood_flutter/models/menu.dart';
+import 'package:ohmyfood_flutter/providers/app_provider.dart';
 import 'package:ohmyfood_flutter/providers/menu_provider.dart';
 import 'package:ohmyfood_flutter/screens/menu_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +70,7 @@ class MenuList extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
-                              '${store.menus[i].price} kyats',
+                              '${store.menus[i].price} KS',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: kBlueColor,
@@ -81,7 +84,12 @@ class MenuList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CircleButton(
-                          onPress: () {},
+                          onPress: () {
+                            final menu = store.menus[i].getClone();
+                            menu.ingredients
+                                .forEach((element) => element.quantity = 1);
+                            context.read<AppProvider>().addToCart(menu);
+                          },
                           child: Icon(
                             Icons.add,
                             color: Colors.white,

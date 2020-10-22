@@ -4,6 +4,7 @@ import 'package:ohmyfood_flutter/models/menu.dart';
 import 'package:ohmyfood_flutter/models/menu_type.dart';
 
 class MenuProvider with ChangeNotifier {
+  bool _isUpdate = false;
   List<Menu> _menus = [
     Menu(
       id: '1',
@@ -112,6 +113,12 @@ class MenuProvider with ChangeNotifier {
   String get menuId => _menuId;
   Menu get currentMenu =>
       _menus.firstWhere((element) => element.id == _menuId, orElse: () => null);
+  bool get isUpdate => _isUpdate;
+
+  void setIsUpdate(bool isUpdate) {
+    _isUpdate = isUpdate;
+    notifyListeners();
+  }
 
   void setMenuTypes(List<MenuType> menuTypes) {
     _menuTypes = menuTypes;
@@ -121,6 +128,14 @@ class MenuProvider with ChangeNotifier {
   void setMenus(List<Menu> menus) {
     _menus = menus;
     notifyListeners();
+  }
+
+  void updateMenu(Menu menu) {
+    final index = _menus.indexWhere((element) => element.id == menu.id);
+    if (index >= 0) {
+      _menus[index] = menu.getClone();
+      notifyListeners();
+    }
   }
 
   void setMenuId(String menuId) {
