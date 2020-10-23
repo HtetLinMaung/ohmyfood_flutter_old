@@ -35,7 +35,7 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
             left: -60,
             top: -90,
             child: Hero(
-              tag: "menu_image${menu.id}",
+              tag: "menu_image${store.isUpdate ? appProvider.refId : menu.id}",
               child: Material(
                 type: MaterialType.transparency,
                 child: CircleAvatar(
@@ -67,6 +67,7 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                               size: 20,
                             ),
                             onTap: () {
+                              context.read<MenuProvider>().setIsUpdate(false);
                               menu.ingredients
                                   .forEach((element) => element.quantity = 0);
                               Navigator.pop(context);
@@ -132,24 +133,18 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                       onPressed: () {
                         final appProvider = context.read<AppProvider>();
                         final menuProvider = context.read<MenuProvider>();
-                        // var quantity = 1;
+
                         if (menuProvider.isUpdate) {
-                          // quantity = appProvider.carts
-                          //     .firstWhere(
-                          //         (element) => element.menu.id != menu.id)
-                          //     .quantity;
-                          final carts = appProvider.carts
-                              .where((element) => element.menu.id != menu.id)
-                              .toList();
-                          appProvider.setCarts(carts);
-                          menuProvider.setIsUpdate(false);
+                          appProvider.updateCartByMenu(menu);
+                        } else {
+                          appProvider.addToCart(menu);
                         }
-                        appProvider.addToCart(menu);
 
                         menu.ingredients
                             .forEach((element) => element.quantity = 0);
                         if (menuProvider.isUpdate) {
                           Navigator.pop(context);
+                          menuProvider.setIsUpdate(false);
                         } else {
                           Navigator.popAndPushNamed(
                               context, CartScreen.routeName);
@@ -162,26 +157,30 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
                   Expanded(
                     child: Text(''),
                   ),
-                  CircleButton(
-                    size: 45,
-                    onPress: () =>
-                        Navigator.pushNamed(context, CartScreen.routeName),
-                    elevation: 10,
-                    // fillColor: kDarkYellowColor,
-                    child: Badge(
-                      showBadge: appProvider.carts.length > 0,
-                      badgeContent: Text(
-                        appProvider.carts.length.toString(),
-                      ),
-                      badgeColor: kDarkYellowColor,
-                      child: Icon(
-                        Icons.add_shopping_cart_rounded,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(''),
-                  ),
+                  !store.isUpdate
+                      ? CircleButton(
+                          size: 45,
+                          onPress: () => Navigator.pushNamed(
+                              context, CartScreen.routeName),
+                          elevation: 10,
+                          // fillColor: kDarkYellowColor,
+                          child: Badge(
+                            showBadge: appProvider.carts.length > 0,
+                            badgeContent: Text(
+                              appProvider.carts.length.toString(),
+                            ),
+                            badgeColor: kDarkYellowColor,
+                            child: Icon(
+                              Icons.add_shopping_cart_rounded,
+                            ),
+                          ),
+                        )
+                      : Text(''),
+                  !store.isUpdate
+                      ? Expanded(
+                          child: Text(''),
+                        )
+                      : Text(''),
                 ],
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
-import 'package:ohmyfood_flutter/components/menu_screen/menu_list.dart';
+import 'package:ohmyfood_flutter/components/image/rounded_image.dart';
 import 'package:ohmyfood_flutter/providers/app_provider.dart';
 import 'package:ohmyfood_flutter/providers/menu_provider.dart';
 import 'package:ohmyfood_flutter/screens/menu_detail_screen.dart';
@@ -40,6 +40,7 @@ class CartList extends StatelessWidget {
                   final menuProvider = context.read<MenuProvider>();
                   menuProvider.updateMenu(carts[i].menu);
                   menuProvider.setMenuId(carts[i].menu.id);
+                  context.read<AppProvider>().setRefId(carts[i].id);
                   menuProvider.setIsUpdate(true);
                   Navigator.pushNamed(context, MenuDetailScreen.routeName);
                 },
@@ -50,6 +51,7 @@ class CartList extends StatelessWidget {
                     child: Row(
                       children: [
                         RoundedImage(
+                          id: carts[i].id,
                           image: AssetImage(carts[i].menu.imageUrl),
                         ),
                         Expanded(

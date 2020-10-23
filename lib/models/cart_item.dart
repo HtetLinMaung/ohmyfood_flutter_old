@@ -19,4 +19,12 @@ class CartItem {
             .toList()
             .reduce((value, element) => value + element);
   }
+
+  CartItem getClone() {
+    return CartItem(
+      id: id,
+      menu: menu.getClone(),
+      quantity: quantity,
+    );
+  }
 }

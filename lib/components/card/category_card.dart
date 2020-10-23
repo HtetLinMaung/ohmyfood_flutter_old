@@ -101,7 +101,7 @@ class _CategoryCardState extends State<CategoryCard>
                                   ),
                                 ),
                                 Text(
-                                  'Min - ${widget.category.price} kyats',
+                                  'Min - ${widget.category.price} KS',
                                   style: TextStyle(
                                     color: kNormalFontColor,
                                     fontSize: 12,

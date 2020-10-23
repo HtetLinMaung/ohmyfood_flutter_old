@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ohmyfood_flutter/components/button/circle_button.dart';
+import 'package:ohmyfood_flutter/components/image/rounded_image.dart';
 import 'package:ohmyfood_flutter/constants/colors.dart';
-import 'package:ohmyfood_flutter/models/cart_item.dart';
-import 'package:ohmyfood_flutter/models/menu.dart';
 import 'package:ohmyfood_flutter/providers/app_provider.dart';
 import 'package:ohmyfood_flutter/providers/menu_provider.dart';
 import 'package:ohmyfood_flutter/screens/menu_detail_screen.dart';
@@ -15,6 +15,9 @@ class MenuList extends StatelessWidget {
 
     return Expanded(
       child: ListView.builder(
+        padding: EdgeInsets.only(
+          bottom: 75,
+        ),
         itemCount: store.menus.length,
         itemBuilder: (ctx, i) {
           return Card(
@@ -37,14 +40,9 @@ class MenuList extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 child: Row(
                   children: [
-                    Hero(
-                      tag: 'menu_image${store.menus[i].id}',
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: RoundedImage(
-                          image: AssetImage(store.menus[i].imageUrl),
-                        ),
-                      ),
+                    RoundedImage(
+                      id: store.menus[i].id,
+                      image: AssetImage(store.menus[i].imageUrl),
                     ),
                     Expanded(
                       child: Padding(
@@ -105,30 +103,6 @@ class MenuList extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class RoundedImage extends StatelessWidget {
-  final ImageProvider<Object> image;
-
-  const RoundedImage({
-    Key key,
-    @required this.image,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 85,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: image,
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(15),
       ),
     );
   }

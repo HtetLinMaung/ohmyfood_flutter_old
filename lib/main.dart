@@ -7,6 +7,7 @@ import 'package:ohmyfood_flutter/screens/get_started_screen.dart';
 import 'package:ohmyfood_flutter/screens/home_screen.dart';
 import 'package:ohmyfood_flutter/screens/landing_screen.dart';
 import 'package:ohmyfood_flutter/screens/login_screen.dart';
+import 'package:ohmyfood_flutter/screens/map_screen.dart';
 import 'package:ohmyfood_flutter/screens/menu_detail_screen.dart';
 import 'package:ohmyfood_flutter/screens/menu_screen.dart';
 import 'package:ohmyfood_flutter/screens/otp_screen.dart';
@@ -50,6 +51,7 @@ class OhMyFood extends StatelessWidget {
         MenuScreen.routeName: (context) => MenuScreen(),
         CartScreen.routeName: (context) => CartScreen(),
         MenuDetailScreen.routeName: (context) => MenuDetailScreen(),
+        MapScreen.routeName: (context) => MapScreen(),
       },
     );
   }
